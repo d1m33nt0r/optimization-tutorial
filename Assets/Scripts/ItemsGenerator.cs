@@ -5,6 +5,15 @@ using UnityEngine;
 public class ItemsGenerator : MonoBehaviour
 {
     [SerializeField]
+    private bool generateCubes;
+
+    [SerializeField]
+    private bool generateSpheres;
+
+    [SerializeField]
+    private bool rotateCubes;
+
+    [SerializeField]
     private GameObject cube;
 
     [SerializeField]
@@ -42,6 +51,15 @@ public class ItemsGenerator : MonoBehaviour
         startCubesPosition = cubeParent.position;
         startSpheresPosition = sphereParent.position;
 
+        if (generateCubes)
+            GenerateCubes();
+
+        if (generateSpheres)
+            GenerateSpheres();
+    }
+
+    private void GenerateCubes()
+    {
         for (int i = 0; i < countCubes.y; i++)
         {
             cubes.Add(new List<GameObject>());
@@ -51,7 +69,10 @@ public class ItemsGenerator : MonoBehaviour
                 cubes[i][j].transform.position = new Vector3(j * indent + startCubesPosition.x, startCubesPosition.y, i * indent + startCubesPosition.z);
             }
         }
+    }
 
+    private void GenerateSpheres()
+    {
         for (int i = 0; i < countSpheres.y; i++)
         {
             spheres.Add(new List<GameObject>());
@@ -77,6 +98,7 @@ public class ItemsGenerator : MonoBehaviour
 
     private void Update()
     {
-        RotateCubes();
+        if (rotateCubes)
+            RotateCubes();
     }
 }
